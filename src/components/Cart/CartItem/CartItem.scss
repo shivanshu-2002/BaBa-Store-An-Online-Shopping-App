@@ -1,5 +1,6 @@
 .cart-products {
     flex-grow: 1;
+    overflow: auto;
     .search-result-item {
         padding: 20px 15px;
         display: flex;

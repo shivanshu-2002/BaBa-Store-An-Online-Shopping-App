@@ -8,6 +8,14 @@ import Category from "./components/Category/Category";
 import SingleProduct from "./components/SingleProduct/SingleProduct";
 import Newsletter from "./components/Footer/Newsletter/Newsletter";
 import AppContext from "./utils/context";
+import Login from "./components/Login/Login";
+import Signup from "./components/Login/Signup";
+import SendOtp from "./components/Login/SendOtp";
+import AboutPage from "./components/AboutPage/AboutPage";
+import Profile from "./components/Profile/Profile";
+
+
+
 
 function App() {
     return (
@@ -18,6 +26,11 @@ function App() {
                     <Route path="/" element={<Home />} />
                     <Route path="/category/:id" element={<Category />} />
                     <Route path="/product/:id" element={<SingleProduct />} />
+                    <Route path="/login" element={<Login />} />
+                    <Route path="/signup" element={<SendOtp />} />
+                    <Route path="/signupform" element={<Signup />} />
+                    <Route path="/about" element={<AboutPage />} />
+                    <Route path="/profile" element={<Profile />} />
                 </Routes>
                 <Newsletter />
                 <Footer />

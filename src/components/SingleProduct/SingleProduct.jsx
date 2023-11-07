@@ -1,8 +1,8 @@
-import { useContext, useState } from "react";
+import { useContext, useState ,useEffect } from "react";
 import { Context } from "../../utils/context";
 import { useParams } from "react-router-dom";
-import useFetch from "../../hooks/useFetch";
-import RelatedProducts from "./RelatedProducts/RelatedProducts";
+import {fetchProductFromApi} from "../../utils/api.js";
+import Corouselimgs from "../Corousel/Corouselimgs.jsx";
 import {
     FaFacebookF,
     FaTwitter,
@@ -12,12 +12,28 @@ import {
     FaCartPlus,
 } from "react-icons/fa";
 import "./SingleProduct.scss";
+import Products from "../Products/Products.jsx";
 
 const SingleProduct = () => {
     const [quantity, setQuantity] = useState(1);
     const { id } = useParams();
     const { handleAddToCart } = useContext(Context);
-    const { data } = useFetch(`/api/products?populate=*&[filters][id]=${id}`);
+    const [data, setData] = useState(null);
+    const [relatedProd , setrelatedProd] = useState(null);
+
+    useEffect(() => {
+        const fetchData = async () => {
+            try {
+                const response = await fetchProductFromApi(id);
+                setData(response.productDetails);
+                setrelatedProd(response.filtered_related_products)
+            } catch (error) {
+                console.error("Error fetching category data:", error);
+            }
+        }
+        fetchData();
+    }, [id]);
+    
 
     const decrement = () => {
         setQuantity((prevState) => {
@@ -29,25 +45,25 @@ const SingleProduct = () => {
         setQuantity((prevState) => prevState + 1);
     };
 
-    if (!data) return;
-    const product = data?.data?.[0]?.attributes;
+    const obj = {
+          height:'100%',
+          width:'100%'
+    }
 
+    // if (!data) return;
+    // const product = data?.data?.[0]?.attributes;
+     
     return (
         <div className="single-product-main-content">
             <div className="layout">
                 <div className="single-product-page">
                     <div className="left">
-                        <img
-                            src={
-                                
-                                product.image.data[0].attributes.url
-                            }
-                        />
+                        <Corouselimgs className="abc" images = {data?.thumbnail} neeche={true} obj = {obj}/>
                     </div>
                     <div className="right">
-                        <span className="name">{product.title}</span>
-                        <span className="price">&#8377;{product.price}</span>
-                        <span className="desc">{product.description}</span>
+                        <span className="name">{data?.productName}</span>
+                        <span className="price">&#8377;{data?.price}</span>
+                        <span className="desc">{data?.productDescription}</span>
 
                         <div className="cart-buttons">
                             <div className="quantity-buttons">
@@ -58,12 +74,12 @@ const SingleProduct = () => {
                             <button
                                 className="add-to-cart-button"
                                 onClick={() => {
-                                    handleAddToCart(data?.data?.[0], quantity);
+                                    handleAddToCart(data, quantity);
                                     setQuantity(1);
                                 }}
                             >
                                 <FaCartPlus size={20} />
-                                ADD TO CART
+                                <div>ADD TO CART</div>
                             </button>
                         </div>
 
@@ -73,8 +89,7 @@ const SingleProduct = () => {
                                 Category:{" "}
                                 <span>
                                     {
-                                        product.categories.data[0].attributes
-                                            .title
+                                        data?.category?.name
                                     }
                                 </span>
                             </span>
@@ -88,16 +103,26 @@ const SingleProduct = () => {
                                     <FaPinterest size={16} />
                                 </span>
                             </span>
+                            <span className="text-bold">
+                                Discounts:
+                                <span className="social-icons">
+                                   {data?.discounts}% On axis Bank Credit Card
+                                </span>
+                            </span>
                         </div>
                     </div>
                 </div>
-                <RelatedProducts
-                    productId={id}
-                    categoryId={product.categories.data[0].id}
-                />
+              
+               
+                <Products
+                        headingText="Related Products"
+                        products={relatedProd}
+                    />
             </div>
         </div>
     );
 };
 
 export default SingleProduct;
+
+

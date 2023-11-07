@@ -1,0 +1,59 @@
+/* SendOtp.scss */
+
+$gray: #f4f4f4;
+$purple: #711eac;
+$darkPurple: #531798;
+$white: #fff;
+
+.container {
+  margin-top: 30px;
+  display: flex;
+  gap: 20px;
+  flex-direction: column;
+  align-items: center;
+  margin-top: 50px;
+  height: 60vh;
+   background-color: #f4f4f4;
+}
+
+.form-container {
+  
+  
+  height: 50vh;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  text-align: center;
+  font-size: 1.2rem; // Increase the font size
+  background-color: #fff}
+
+h3 {
+  color: black; // White text color for the heading
+}
+
+input {
+  width: 100%;
+  padding: 10px;
+  margin: 10px 0;
+  border: 1px solid black;
+  border-radius: 4px;
+  font-size: 1.1rem; // Increase the font size for input fields
+}
+
+button {
+  width: 100%;
+  padding: 10px;
+  background-color: $purple; // Purple button color
+  color: $white; // White text color for the button
+  border:2px solid white;
+  cursor: pointer;
+  transition: background-color 0.3s;
+  font-size: 1.1rem; // Increase the font size for the button
+}
+
+button:hover {
+  background-color: $darkPurple; // Darker purple on hover
+}

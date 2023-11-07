@@ -2,10 +2,11 @@
 .products-container {
     margin: 50px 0;
     @include md {
-        margin: 75px 0;
+        margin: 40px 0;
+        margin-left: 35px;
     }
     .sec-heading {
-        margin-bottom: 20px;
+        // margin-bottom: 20px;
         font-size: 18px;
         font-weight: 500;
         text-transform: uppercase;

@@ -5,19 +5,15 @@ const Category = ({ categories }) => {
     const navigate = useNavigate();
     return (
         <div className="shop-by-category">
+            <div className="sec-heading">Popular Categories</div>
             <div className="categories">
-                {categories?.data?.map((item) => (
+                {categories?.slice(0, 4).map((item) => (
                     <div
-                        key={item.id}
+                        key={item._id}
                         className="category"
-                        onClick={() => navigate(`/category/${item.id}`)}
-                    >
-                        <img
-                            src={
-                                
-                                item?.attributes?.image?.data[0]?.attributes?.url
-                            }
-                        />
+                        onClick={() => navigate(`/category/${item._id}`)}>
+                       
+                        <img src = {item.image} alt={item.name}/>
                     </div>
                 ))}
             </div>

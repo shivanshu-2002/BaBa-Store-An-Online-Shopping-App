@@ -10,16 +10,16 @@ const Product = ({ data, id }) => {
             onClick={() => navigate("/product/" + id)}
         >
             <div className="thumbnail">
-                <img
+                <img 
                     src={
                         
-                        data.image.data[0].attributes.url
+                        data?.thumbnail[0]
                     }
                 />
             </div>
             <div className="prod-details">
-                <span className="name">{data.title}</span>
-                <span className="price">&#8377;{data.price}</span>
+                <span className="name">{data?.productName}</span>
+                <span className="price">&#8377;{data?.price}</span>
             </div>
         </div>
     );
